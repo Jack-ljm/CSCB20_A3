@@ -52,3 +52,7 @@ git branch -d local_branch_name
 ```bash
 git push origin --delete remote_branch_name
 ```
+
+### .gitignore
+I ignore the MacOS system file `.DS_Store` since it is not necessary.\
+I also ignore `A3.db` since it is automatically generated in init_db().
