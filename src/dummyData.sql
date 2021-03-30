@@ -1,8 +1,6 @@
-INSERT INTO student VALUES
-('Jack', 'jackpw');
-
-INSERT INTO instructor VALUES
-('Anna', 'annapw');
+INSERT INTO user VALUES
+('Jack', 'jackpw', "student"),
+('Anna', 'annapw', "instructor");
 
 INSERT INTO grade VALUES
 ('Jack', 'A1', datetime('now'), 90);
