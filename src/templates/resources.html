@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Resources</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/resources-style.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!-- banner -->
+            <div class="banner">
+                <div class="banner-wrapper">
+                    <div class="banner-text-wrapper">
+                        <div class=""> <h1> Links </h1> </div>
+                        <div class="banner-line"> </div>
+                        <div class="banner-description"> 
+                            <p>
+                                For LaTeX installations, go to the latex project install 
+                                <span class="hyper-link"> <a href="http://latex-project.org/ftp.html"> website </a> </span>
+                                Both the Windows and Mac versions listed come with editors as well as 
+                                the packages and compilers.
+                            </p>
+                            <p>
+                                Once you are up and running, I recommend downloading the 
+                                <span class="hyper-link"> <a href="http://tobi.oetiker.ch/lshort/lshort.pdf"> Not So Short Guide to LaTeX </a> </span>
+                                . Everything you need is there, however it may be overkill. 
+                                You can also start with this 
+                                <span class="hyper-link"> <a href="https://mathlab.utsc.utoronto.ca/bretscher/b63/lectures/template.tex"> template.tex </a> </span> 
+                                and add as you need.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Title-->
+            <div class="title-wrapper">
+                <div class="title-text">
+                    Other links:
+                </div>
+                <div class="title-line"></div>
+                
+
+            </div>
+            <!---->
+            <div class="content-wrapper">
+                <div class="block-wrapper">
+                    <div class="block-element">
+                        <div class="hyper-link-b content-text"> 
+                            <a href="https://markus.utsc.utoronto.ca/cscc63w21"> <h1> Markcus </h1> </a> 
+                        </div>
+                    </div>
+                    <div class="block-element">
+                        <div class="hyper-link-b content-text"> 
+                            <a href="https://piazza.com/utoronto.ca/winter2021/cscb63h3slec01/home"> <h1> Piazza </h1> </a> 
+                        </div>
+                    </div>
+                    <div class="block-element">
+                        <div class="hyper-link-b content-text"> 
+                            <a href="https://q.utoronto.ca/"> <h1> Quercus </h1> </a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-element">
+                    <div>
+                        <div class="feedback-title">
+                            Please leave us some feedback!
+                        </div>
+                        <div class="feedback-form-wrapper">
+                            <form action="resources.html" method="post">
+                                <label for="name">Nick name</label>
+                                <input type="name">
+                                <br><br>
+
+                                <label for="feedback-text"></label>
+                                <textarea id="feedback-text" name="feedback-text" 
+                                    placeholder="Enter your feedback here"></textarea>
+                                <br> <br>
+
+                                <input type="submit" value="submit">
+
+                            </form>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

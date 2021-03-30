@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calendar</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/calendar.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+ 
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="calendar-wrapper">
+            <div class="center"><iframe class="center" src="https://calendar.google.com/calendar/embed?src=en.canadian%23holiday%40group.v.calendar.google.com&ctz=America%2FToronto" style="border: 0" width="900" height="700" frameborder="0" scrolling="no"></iframe></div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

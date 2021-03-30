@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Assignments</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/assignments-tests.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!--tag-->
+            <div class="tag-wrapper">
+                <div class="tag-text-upper">
+                    <h1 class="tag-text"> Assignment </h1>
+                </div>
+                <div class="tag-lower"> </div>
+            </div>
+            <div class="content-wrapper"> 
+                <div class="content-fragment blue-linear margin-top">
+                    <div>
+                        <h1 class="text-header yellow-color">Assignment 1</h1>
+                        <p class="text-content white-color">
+                            To be submitted to gradescope.
+                        </p>
+                        <div class="text-content white-color row">
+                            <p class="text-content underline white-color">File: </p>
+                            <a class="nav-link-white" href="{{ url_for('static',filename='pdfs/dummy.pdf') }}">a1.pdf</a>
+                        </div>
+                        <p class="text-content yellow-color highlight-end">
+                            Small update Jan. 27 (noted in red)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-fragment yellow-linear margin-top">
+                    <div>
+                        <h1 class="text-header pink-color">Assignment 2</h1>
+                        <p class="text-content black-color">
+                            To be submitted to gradescope.
+                        </p>
+                        <div class="text-content black-color row">
+                            <p class="text-content underline black-color">File: </p>
+                            <a class="link black-color" href="{{ url_for('static',filename='pdfs/dummy.pdf') }}">a2.pdf</a>
+                        </div>
+                        <p class="text-content pink-color highlight-end">
+                            Note new due date
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-fragment blue-linear margin-top">
+                    <div>
+                        <h1 class="text-header yellow-color">Assignment 3</h1>
+                        <p class="text-content white-color">
+                            To be submitted to gradescope.
+                        </p>
+                        <div class="text-content white-color row">
+                            <p class="text-content underline white-color">File: </p>
+                            <a class="nav-link-white" href="{{ url_for('static',filename='pdfs/dummy.pdf') }}">a3.pdf</a>
+                        </div>
+                        <p class="text-content yellow-color highlight-end">
+                            Note new due date (Sunday March 21 at noon)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

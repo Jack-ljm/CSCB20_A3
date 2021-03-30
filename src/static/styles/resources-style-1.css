@@ -1,0 +1,230 @@
+body{
+    font-family: "Raleway", sans-serif;
+    background-color: #fff;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* --------header-------- */
+#header {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* --------nav bar-------- */
+.nav-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-right: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-image: linear-gradient(to right, #0B345C,#0f1622);
+    transition: 1s;
+    position: fixed;
+    width: 100%;
+    top:0;
+    z-index: 100;
+    border-bottom: 1px solid white;
+}
+
+.nav-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.nav-link::after {
+    display:block;
+    content: '';
+    border-bottom: solid 3px #D8345C;  
+    transform: scaleX(0);
+    transition: transform 0.2s;
+    transition-timing-function: cubic-bezier(.17,.67,.83,.67);
+}
+
+.nav-link-white {
+    display: block;
+    margin:10px 20px;
+    color: #f5f5f5ef;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+  
+.nav-link:hover a {
+    display: block;
+    margin:10px 20px;
+    color: #D8345C;
+    text-decoration: none;
+}
+
+.nav-link:hover::after {
+   transform: scaleX(1);
+}
+
+.nav-white {
+    background-image: linear-gradient(to right, #fff,#fff);
+    /* color: #0B345C; */
+    opacity: 0.9;
+    box-shadow: 0 1px 3px #999;
+}
+
+.nav-link-dark {
+    color: #0B345C;
+    transition: 0s;
+}
+
+
+/*--------main content--------*/
+/* --------banner-------- */
+.banner {
+    width: 100%;
+    top: 86px;
+    z-index: -100;
+}
+
+.banner-wrapper {
+    background-image: linear-gradient(to right, #0B345C,#0f1622);
+    overflow: auto;
+}
+
+.banner-text-wrapper {
+    margin: 130px 15% 70px 15%;
+    color: #FFD564;
+    transition: 1s;
+}
+
+.banner-line{
+    position: relative;
+    top: -15px;
+    padding-bottom: 0px;
+    margin-right: 10%;
+    border-bottom: 3px solid white;
+}
+
+.banner-description {
+    margin: 20px 0px 0px 0px;
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+/* --------title-------- */
+.title-wrapper{
+    margin: 40px 10% 5px 10%;
+}
+.title-text{
+    justify-content: center;
+    margin: 0;
+    font-size: 2.5rem;
+    color:#1A2930;
+}
+.title-line{
+    padding-bottom: 0px;
+    margin-right: 10%;
+    border-bottom: 3px solid #0A1612;
+}
+
+/* --------link blocks-------- */
+.content-wrapper{
+    margin: 50px 10%;
+}
+
+.block-wrapper{
+    display: grid;
+    margin: 10px;
+}
+
+@media screen and (min-width: 820px){
+    .block-wrapper{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.block-element{
+    display: grid;
+    grid-template-rows: 1fr;
+    border: 2px solid #0B345C;
+    margin: 5%;
+    padding: 5%;
+    border-radius: 15px;
+    /* height: 200px; */
+}
+
+.img-wrapper{
+    object-fit:cover;
+}
+
+.content-text{
+    /* margin-top: 10px; */
+    margin: auto;
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    
+}
+
+/* --------footer-------- */
+.footer {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.footer-wrapper {
+    background-image: linear-gradient(to right, #0B345C,#0f1622);
+    /* overflow: auto; */
+}
+
+.footer-text-background {
+    background-image: linear-gradient(to right, #0B345C,#0f1622);
+    overflow: auto;
+}
+
+.footer-text-wrapper {
+    margin: 100px 20%;
+    color: #FFD564;
+    text-align: center;
+}
+
+.link-wrapper {
+    margin: 0px 10%;
+    margin: auto;
+    padding: 15px 0px;
+}
+
+.link-text {
+    color: #FFD564;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.blurb-text {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+/* --------hyperlinks-------- */
+.hyper-link a{
+    color: #FFD564;
+}
+.hyper-link:visited a {
+    color: #85A894;
+}
+
+.hyper-link:hover a {
+    color: #D8345C;
+}
+
+.text-font-border{
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.hyper-link-b a{
+    color: #3E6B7E;
+}
+
+.hyper-link-b:hover a {
+    color: #85A894;
+}
+
+

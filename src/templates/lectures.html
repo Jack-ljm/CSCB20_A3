@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Lectures</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/tutorial-lecture-style.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!--tag-->
+            <div class="tag-wrapper">
+                <div class="tag-text-upper">
+                    <h1 class="tag-text"> Lectures </h1>
+                </div>
+                <div class="tag-lower"> </div>
+            </div>
+            <!--content (in margin 10%)-->
+            <div class="content-wrapper"> 
+                <!--table-->
+                <div class="table-wrapper">
+                    <div class="table-banner">
+                        <div><h4 class="text-header yellow-color">Lecture Schedule</h4></div>
+                        <div class="text-content-line"></div>
+                        <div class="text-content white-color"> 
+                            <p>Print and bring the lectures slides/handouts to class each week. </p> 
+                        </div> 
+                    </div>
+                    <div class="table">
+                        <div class="content-row head-row-color">
+                            <div class="header-element"> Week </div>
+                            <div class="header-element"> Topic </div>
+                            <div class="header-element"> Wed Pre-Lecture <br> Reading/Exercise </div>
+                            <div class="header-element"> Thursday Pre-Lecture <br> Reading/Exercise </div>
+                            <div class="header-element"> Wednesday <br> Slides/Video </div>
+                            <div class="header-element"> Thursday <br> Slides/Video </div>
+                        </div>
+                        <div class="content-row row-color-a">
+                            <div class="content-element"> 1 </div>
+                            <div class="content-element"> Intro, Worst Case Complexity </div>
+                            <div class="content-element"> None </div>
+                            <div class="content-element"> 
+                                CLRS 3.1 (not including little "oh") or watch
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Big Oh Video Insertion Sort Video </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Intro Slides PDF </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Worksheet PDF Zoom </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Worksheet1_class Slides PDF </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-b">
+                            <div class="content-element"> 2 </div>
+                            <div class="content-element"> Balanced Trees (AVL) </div>
+                            <div class="content-element"> None </div>
+                            <div class="content-element"> Refresh your understanding of binary search trees 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> video visualization applet </a> </div> 
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> worksheet.pdf  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Inclass Worksheet slides  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Recording  </a> </div>
+                            </div>
+                            <div class="content-element">
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Worksheet  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Inclass Worksheet slides  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Recording  </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-a">
+                            <div class="content-element"> 3 </div>
+                            <div class="content-element"> AVL Trees height, and Augment. Interval Trees </div>
+                            <div class="content-element"> None </div>
+                            <div class="content-element"> None </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> AVL trees augmenting worksheet  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> In class worksheet </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Recording  </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Interval Trees Solutions  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Interval Trees In Class </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Recording  </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-b">
+                            <div class="content-element"> 4 </div>
+                            <div class="content-element"> Finish Interval Trees, Heaps and Graph Search Algorithms </div>
+                            <div class="content-element">  </div>
+                            <div class="content-element"> Chapter 6.1-6.4 </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Interval Tree </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Search Proof Heaps </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom link </a> </div>
+                            </div>
+                            <div class="content-element">
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Heaps Inclass </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Heap Building Example </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom link </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-a">
+                            <div class="content-element"> 5 </div>
+                            <div class="content-element"> Graph Searches and Minimum Spanning Trees </div>
+                            <div class="content-element"> Term Test Wed </div>
+                            <div class="content-element"> If you have not had your tutorial, read the graph handout on the tutorials page. </div>
+                            <div class="content-element"> None </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Graph Search Slides </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Searches Worksheet </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> MST Slides  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> MST Worksheet  </a> </div>
+                                <div class="hyper-link"> 
+                                    <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> MST Worksheet Solutions </a> 
+                                    <span class="hyper-link-red"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Updated </a> </span>
+                                </div>
+                                
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link  </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> In Class Graph Notes </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> MST in class </a> Only to slide 15 </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-b">
+                            <div class="content-element"> 6 </div>
+                            <div class="content-element"> Proof of Prims, Dijkstra's Algorithm, Strongly Connected Components </div>
+                            <div class="content-element"> Ch 24.3, Practice Prims algorithm </div>
+                            <div class="content-element"> 22.5, Review DFS - make sure you understand it </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> MST In Class </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Dijkstra </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link  </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Strongly Connected Components Slides </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> SCC Examples </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link  </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-a">
+                            <div class="content-element"> 7 </div>
+                            <div class="content-element"> Amortized Analysis </div>
+                            <div class="content-element"> Ch. 17.4, Ch. 21 </div>
+                            <div class="content-element">  </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Amortized Lecture slides </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Amortized Lecture slides In Class </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link  </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Potential Lecture slides </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Potential Lecture In Class </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link </a> </div>
+                            </div>
+                        </div>
+                        <div class="content-row row-color-b">
+                            <div class="content-element"> 8 </div>
+                            <div class="content-element"> Disjoint Sets, Fibonacci Heaps </div>
+                            <div class="content-element"> Ch. 20 </div>
+                            <div class="content-element">  </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Disjoint Sets </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link </a> </div>
+                            </div>
+                            <div class="content-element"> 
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Fibonacci Heaps Annotated </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Fibonacci Heaps Complexity Annotated </a> </div>
+                                <div class="hyper-link"> <a href="{{ url_for('static',filename='pdfs/dummy.pdf') }}"> Zoom Link </a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

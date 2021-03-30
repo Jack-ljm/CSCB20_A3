@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Index</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- banner -->
+            <div class="banner">
+                <div class="banner-wrapper">
+                    <div class="banner-text-wrapper">
+                        <p class="banner-course-code">CSCB63</p>
+                        <p class="banner-name">Design and Analysis of Data Structures</p>
+                        <p class="banner-description">Design, analysis, implementation and comparison of efficient data 
+                            structures for common abstract data types. Priority queues: heaps and mergeable heaps. 
+                            Dictionaries: balanced binary search trees, B-trees, hashing. Amortization: data structures 
+                            for managing dynamic tables and disjoint sets. Data structures for representing graphs. 
+                            Graph searches.</p>
+                    </div>
+                </div>
+                <img src="{{ url_for('static',filename='images/home-wave.png') }}" class="banner-wave">
+            </div>
+
+            <div class="content-wrapper">
+                <div class="content-fragment blue-linear">
+                    <div class="content-split">
+                        <div>
+                            <h1 class="text-header yellow-color">Prerequisite</h1>
+                            <ul class="text-tags">
+                                <li class="text-tag pink-background white-color">CSCB36H or (CSCB38H)</li>
+                                <li class="text-tag pink-background white-color">CGPA 2.75 or enrolment in a CSC subject POST</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h1 class="text-header yellow-color">Exclusion</h1>
+                            <ul class="text-tags">
+                                <li class="text-tag pink-background white-color">CSC263H</li>
+                                <li class="text-tag pink-background white-color">CSC265H</li>
+                                <li class="text-tag pink-background white-color">(CSCB38H)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-fragment yellow-linear margin-top">
+                    <div>
+                        <h1 class="text-header pink-color">Instructor</h1>
+                        <p class="text-content highlight pink-color">Dr. Anna Bretscher</p>
+                        <p class="text-content black-color">
+                            <span class="text-content underline black-color">Email: </span>
+                            anna.bretscher@utoronto.ca
+                        </p>
+                        <p class="text-content black-color">
+                            <span class="text-content underline black-color">Office: </span>
+                            IC 493
+                        </p>
+                        <p class="text-content black-color">
+                            <span class="text-content underline black-color">Office Hours: </span>
+                            Usually <span class="text-tag pink-background white-color">Mondays 11:00-12:30</span>, 
+                            <span class="text-tag pink-background white-color">Friday 10:40-11:30</span>. 
+                            Please see the calendar for weekly changes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-fragment blue-linear margin-top">
+                    <div>
+                        <h1 class="text-header yellow-color">Course Timing</h1>
+                        <div class="table-row border-bottom">
+                            <div></div>
+                            <p class="text-content highlight white-color center">Time</p>
+                            <p class="text-content highlight white-color center">Location</p>
+                        </div>
+                        <div class="table-row">
+                            <p class="text-content white-color center">Lecture</p>
+                            <p class="text-content white-color center">Wednesdays 3:00-4:00</p>
+                            <div class="text-content center"><a class="text-content white-color center" href="https://utoronto.zoom.us/j/89553548645#success">Zoom</a></div>
+                        </div>
+                        <div class="table-row">
+                            <p class="text-content white-color center">Lecture</p>
+                            <p class="text-content white-color center">Thursdays 9:10-11:00</p>
+                            <div class="text-content center"><a class="text-content white-color center" href="https://utoronto.zoom.us/j/89553548645#success">Zoom</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
