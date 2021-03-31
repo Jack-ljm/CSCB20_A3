@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Login/Registration</title>
-        <link rel="stylesheet" href="login_style.css">
-        <script defer src="login-page.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
+    <!--<script defer src="login-page.js"></script>-->
 </head>
 <body>
-    <div class="login-page">
+<div class="login-page">
     <div class="form">
+        <!--
         <div class="login-error">
-        <p class="error-message">Invalid username or password</p>
+            <p class="error-message">Invalid username or password</p>
         </div>
         <form class="registration">
-        <input type ="text" placeholder="Username">
-        <input type ="text" placeholder="Password">
-        <input type ="text" placeholder="Full Name">
-        <input type ="text" placeholder="Student or Teacher?">
-        <button>Create Account</button>
+            <input type="text" placeholder="Username">
+            <input type="text" placeholder="Password">
+            <input type="text" placeholder="Student or Teacher?">
+            <input type="submit" value="Create Account">
         </form>
-
-        <form class="login">
-        <input type ="text" placeholder="Username">
-        <input type ="text" placeholder="Password">
-        <input type="submit" value="Login" class="login-form-submit">
+        -->
+        <form class="login" action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" value="Login">
         </form>
     </div>
-    </div>
+</div>
 
 </body>
 </html>

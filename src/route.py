@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, g
+from flask import Flask, render_template, url_for, g, request
 import os
 import sqlite3
 
@@ -23,6 +23,12 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -31,7 +37,45 @@ def close_connection(exception):
 
 @app.route("/")
 def home():
+    print("in root")
+    return render_template('login.html')
+
+@app.route('/login', methods= ['POST'])
+def login():
+    print("in login")
+    # extract username and password from the request
+    username = request.form['username']
+    password = request.form['password']
+    print(username + " " + password)
+    # retrieve user details from db
+    user = query_db('select * from user where username = ?', [username], one=True)
+    if user is None:
+        print('No such user')
+    else:
+        print(username, user[1], user[2])
+        pw = user[1]
+        role= user[2]
+        if password == pw:
+            if role == 'student':
+                return student(username)
+            else:
+                return instructor(username)
+    # retrieve user details from db
+
+    # - no details for user
+    # - user is found
+    # validate password
+    # - wrong password
+    # - correct
     return render_template('index.html')
+
+@app.route('/student')
+def student(username):
+    return render_template('student.html')
+
+@app.route('/instructor')
+def instructor(username):
+    return render_template('instructor.html')
 
 @app.route('/calendar')
 def calendar():

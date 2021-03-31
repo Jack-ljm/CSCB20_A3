@@ -5,12 +5,14 @@
 ```bash
 cd src
 set FLASK_APP=route.py
+set FLASK_ENV=development
 flask run
 ```
 ### MacOS
 ```bash
 cd src
 env FLASK_APP=route.py
+export FLASK_ENV=development
 flask run
 ```
 
