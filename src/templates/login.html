@@ -2,29 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login/Registration</title>
+    <title>Login</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
-    <!--<script defer src="login-page.js"></script>-->
 </head>
 <body>
 <div class="login-page">
     <div class="form">
-        <!--
-        <div class="login-error">
-            <p class="error-message">Invalid username or password</p>
-        </div>
-        <form class="registration">
-            <input type="text" placeholder="Username">
-            <input type="text" placeholder="Password">
-            <input type="text" placeholder="Student or Teacher?">
-            <input type="submit" value="Create Account">
-        </form>
-        -->
         <form class="login" action="/login" method="POST">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
             <input type="submit" value="Login">
         </form>
+        <p><a href="/signup">Create Account?</a></p>
     </div>
 </div>
 

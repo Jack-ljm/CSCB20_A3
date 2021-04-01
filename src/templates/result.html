@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intermediary</title>
+</head>
+<body>
+    <p>
+        {% if account_created %}
+            Your Account Has Been Created! <a href="/">Please Log In</a>
+        {% else %}
+            Your Account Already Exists! <a href="/">Try Logging In</a>
+        {% endif %}
+    </p>
+</body>
+</html>

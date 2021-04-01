@@ -37,24 +37,20 @@ def close_connection(exception):
 
 @app.route("/")
 def home():
-    print("in root")
     return render_template('login.html')
 
 @app.route('/login', methods= ['POST'])
 def login():
-    print("in login")
     # extract username and password from the request
     username = request.form['username']
     password = request.form['password']
-    print(username + " " + password)
-    # retrieve user details from db
     user = query_db('select * from user where username = ?', [username], one=True)
     if user is None:
-        print('No such user')
+        pass
+        #deal with negative later
     else:
-        print(username, user[1], user[2])
         pw = user[1]
-        role= user[2]
+        role = user[2]
         if password == pw:
             if role == 'student':
                 return student(username)
@@ -68,6 +64,30 @@ def login():
     # - wrong password
     # - correct
     return render_template('index.html')
+
+@app.route("/signup")
+def signup():
+    return render_template('account.html')
+
+@app.route('/account', methods = ['POST'])
+def account():
+    username = request.form['username']
+    password = request.form['password']
+    role = request.form['role']
+    try:
+        cur = get_db().execute(
+            'INSERT INTO user (username, password, role) values (?,?,?)',
+            (
+                username,
+                password,
+                role
+            )
+        )
+        #code notice of successful account creation
+        return render_template('result.html', account_created=True)
+    except:
+        #Code a notice that informs you that the login already exists
+        return render_template('result.html', account_created=False)
 
 @app.route('/student')
 def student(username):

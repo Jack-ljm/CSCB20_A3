@@ -3,7 +3,7 @@ body{
   background-size: cover;
   background-position: center;
 }
-.login-page{
+.account-page{
   width: 400px;
   padding: 10% 0 0;
   margin: auto;
@@ -28,8 +28,8 @@ body{
   padding: 30px;
   box-sizing: 20px;
 }
-
-.form input submit{
+/*
+.form login{
   font-family: "Gill Sans", sans-serif;
   outline: 0;
   background: #fffdd0;
@@ -40,11 +40,7 @@ body{
   font-size: 20px;
   cursor: pointer;
 }
-
+*/
 input[type="submit" i] {
   background: #fffdd0;
-}
-
-.form a{
-  color: #ffffff;
 }
