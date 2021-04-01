@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/account-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
 </head>
 <body>
-    <div class ="account-page">
+    <div class ="page">
         <div class = "form">
             <form class="account" action="/account" method="POST">
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="text" name="role" placeholder="student or instructor?">
-            <input type="submit" value="Create Account">
-        </form>
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <select name="role" id="role-select">
+                    <option value="student">student</option>
+                    <option value="instructor">instructor</option>
+                </select>
+                <input type="submit" value="Create Account">
+            </form>
         <p><a href="/">Login?</a></p>
         </div>
     </div>

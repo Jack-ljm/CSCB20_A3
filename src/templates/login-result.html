@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Intermediary</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
 </head>
 <body>
-    <p>
+    <p class="result-message">
         {% if not user_exist %}
             You Don't Have An Account With Us! <a href="/signup">Please Create An Account</a>
         {% elif not password_correct %}

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Intermediary</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
 </head>
 <body>
-    <p>
+    <p class="result-message">
         {% if account_created %}
             Your Account Has Been Created! <a href="/">Please Log In</a>
         {% else %}
