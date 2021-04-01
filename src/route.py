@@ -46,24 +46,20 @@ def login():
     password = request.form['password']
     user = query_db('select * from user where username = ?', [username], one=True)
     if user is None:
-        pass
-        #deal with negative later
+        print("user is none")
+        return render_template("login-result.html", user_exist=False)
     else:
         pw = user[1]
         role = user[2]
         if password == pw:
             if role == 'student':
-                return student(username)
+                # return student(username)
+                return render_template('index.html')
             else:
-                return instructor(username)
-    # retrieve user details from db
-
-    # - no details for user
-    # - user is found
-    # validate password
-    # - wrong password
-    # - correct
-    return render_template('index.html')
+                # return instructor(username)
+                return render_template('index.html')
+        else:
+            return render_template("login-result.html", user_exist=True, password_correct=False)
 
 @app.route("/signup")
 def signup():
@@ -75,7 +71,8 @@ def account():
     password = request.form['password']
     role = request.form['role']
     try:
-        cur = get_db().execute(
+        db = get_db()
+        cur = db.execute(
             'INSERT INTO user (username, password, role) values (?,?,?)',
             (
                 username,
@@ -83,11 +80,10 @@ def account():
                 role
             )
         )
-        #code notice of successful account creation
-        return render_template('result.html', account_created=True)
+        db.commit()
+        return render_template('account-result.html', account_created=True)
     except:
-        #Code a notice that informs you that the login already exists
-        return render_template('result.html', account_created=False)
+        return render_template('account-result.html', account_created=False)
 
 @app.route('/student')
 def student(username):
