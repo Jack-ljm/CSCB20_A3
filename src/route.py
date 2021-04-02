@@ -1,8 +1,13 @@
-from flask import Flask, render_template, url_for, g, request
+from flask import Flask, render_template, url_for, g, request, session, redirect
+from functools import wraps
+from flask_session import Session
 import os
 import sqlite3
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'super secret key'
+Session(app)
 
 DATABASE = "./A3.db"
 
@@ -29,6 +34,14 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('username') is None:
+            return redirect('/', code=302)
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -52,6 +65,8 @@ def login():
         pw = user[1]
         role = user[2]
         if password == pw:
+            session['username'] = username
+            session['role'] = role
             if role == 'student':
                 # return student(username)
                 return render_template('index.html')
@@ -86,38 +101,47 @@ def account():
         return render_template('account-result.html', account_created=False)
 
 @app.route('/student')
+@login_required
 def student(username):
     return render_template('student.html')
 
 @app.route('/instructor')
+@login_required
 def instructor(username):
     return render_template('instructor.html')
 
 @app.route('/calendar')
+@login_required
 def calendar():
     return render_template('calendar.html')
 
 @app.route('/discussion-board')
+@login_required
 def discussionBoard():
     return render_template('discussion-board.html')
 
 @app.route('/lectures')
+@login_required
 def lectures():
     return render_template('lectures.html')
 
 @app.route('/tutorials')
+@login_required
 def tutorials():
     return render_template('tutorials.html')
 
 @app.route('/assignments')
+@login_required
 def assignments():
     return render_template('assignments.html')
 
 @app.route('/tests')
+@login_required
 def tests():
     return render_template('tests.html')
 
 @app.route('/resources')
+@login_required
 def resources():
     return render_template('resources.html')
 
