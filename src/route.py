@@ -49,8 +49,12 @@ def close_connection(exception):
         db.close()
 
 @app.route("/")
-def home():
+def loginpage():
     return render_template('login.html')
+
+@app.route("/home")
+def home():
+    return render_template('index.html')
 
 @app.route('/login', methods= ['POST'])
 def login():
@@ -75,6 +79,12 @@ def login():
                 return render_template('index.html')
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
+
+@app.route('/logout')
+def logout():
+    session['username'] = None
+    session['role'] = None
+    return redirect('/', code=302)
 
 @app.route("/signup")
 def signup():
