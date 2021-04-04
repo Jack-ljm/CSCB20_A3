@@ -133,3 +133,6 @@ dmypy.json
 
 # ignore the database
 *.db
+
+# ignore the flask session
+/src/flask_session/

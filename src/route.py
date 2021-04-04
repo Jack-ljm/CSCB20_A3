@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, url_for, g, request, session
+=======
+from flask import Flask, render_template, url_for, g, request, session, redirect
+from functools import wraps
+from flask_session import Session
+>>>>>>> 64900f8165eb63c9eb875c00b4680860d5880385
 import os
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = b'Jack'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'super secret key'
+Session(app)
 
 DATABASE = "./A3.db"
 
@@ -34,6 +42,14 @@ def make_dicts(cursor, row):
     return dict((cursor.description[idx][0], value)
                 for idx, value in enumerate(row))
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('username') is None:
+            return redirect('/', code=302)
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -41,8 +57,12 @@ def close_connection(exception):
         db.close()
 
 @app.route("/")
-def home():
+def loginpage():
     return render_template('login.html')
+
+@app.route("/home")
+def home():
+    return render_template('index.html')
 
 @app.route('/login', methods= ['POST'])
 def login():
@@ -57,7 +77,8 @@ def login():
         pw = user[1]
         role = user[2]
         if password == pw:
-            session['name'] = username
+            session['username'] = username
+            session['role'] = role
             if role == 'student':
                 session['role'] = 'student'
                 return index()
@@ -66,6 +87,12 @@ def login():
                 return index()
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
+
+@app.route('/logout')
+def logout():
+    session['username'] = None
+    session['role'] = None
+    return redirect('/', code=302)
 
 @app.route("/signup")
 def signup():
@@ -93,33 +120,50 @@ def account():
 
 @app.route("/index")
 def index():
-    return render_template('index.html', name=session.get('name', 'not set'))
+    return render_template('index.html', name=session.get('username', 'not set'))
+
+@app.route('/student')
+@login_required
+def student(username):
+    return render_template('student.html')
+
+@app.route('/instructor')
+@login_required
+def instructor(username):
+    return render_template('instructor.html')
 
 @app.route('/calendar')
+@login_required
 def calendar():
     return render_template('calendar.html', name=session.get('name', 'not set'))
 
 @app.route('/discussion-board')
+@login_required
 def discussionBoard():
     return render_template('discussion-board.html', name=session.get('name', 'not set'))
 
 @app.route('/lectures')
+@login_required
 def lectures():
     return render_template('lectures.html', name=session.get('name', 'not set'))
 
 @app.route('/tutorials')
+@login_required
 def tutorials():
     return render_template('tutorials.html', name=session.get('name', 'not set'))
 
 @app.route('/assignments')
+@login_required
 def assignments():
     return render_template('assignments.html', name=session.get('name', 'not set'))
 
 @app.route('/tests')
+@login_required
 def tests():
     return render_template('tests.html', name=session.get('name', 'not set'))
 
 @app.route('/resources')
+@login_required
 def resources():
     return render_template('resources.html', name=session.get('name', 'not set'))
 
