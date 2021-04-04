@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login-style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='javascripts/account.js') }}"></script>
 </head>
 <body>
     <div class ="page">
         <div class = "form">
             <form class="account" action="/account" method="POST">
-                <input type="text" name="username" placeholder="Username">
-                <input type="password" name="password" placeholder="Password">
+                <input type="text" name="username" placeholder="Username" pattern=".{4,}" required title="4 characters minimum">
+                <input type="password" name="password" placeholder="Password" pattern=".{6,}" required title="6 characters minimum">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" pattern=".{6,}" required title="6 characters minimum">
                 <select name="role" id="role-select">
                     <option value="student">student</option>
                     <option value="instructor">instructor</option>
                 </select>
-                <input type="submit" value="Create Account">
+                <input type="submit" value="Create Account" onclick="validatePassword()">
             </form>
         <p><a href="/">Login?</a></p>
         </div>

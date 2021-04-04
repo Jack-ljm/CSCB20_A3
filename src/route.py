@@ -75,11 +75,10 @@ def login():
         if password == pw:
             session['username'] = username
             session['role'] = role
+            # keeping the if in case you want to add something. otherwise no need for if else.
             if role == 'student':
-                session['role'] = 'student'
                 return index()
             else:
-                session['role'] = 'instructor'
                 return index()
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
