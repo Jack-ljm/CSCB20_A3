@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, url_for, g, request, session
-=======
 from flask import Flask, render_template, url_for, g, request, session, redirect
 from functools import wraps
 from flask_session import Session
->>>>>>> 64900f8165eb63c9eb875c00b4680860d5880385
 import os
 import sqlite3
 

@@ -4,5 +4,5 @@ function handler (i) {
 
     document.getElementById("name").setAttribute("value", i.getAttribute('name'));
     document.getElementById("type").setAttribute("value", i.getAttribute('type'));
-    document.getElementById("grade").setAttribute("value", i.getAttribute('grade'));
+    document.getElementById("old-grade").setAttribute("value", i.getAttribute('grade'));
 }
