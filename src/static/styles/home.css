@@ -10,66 +10,6 @@ body {
     grid-template-columns: 1fr;
 }
 
-/* --------nav bar-------- */
-.nav-wrapper {
-    display: flex;
-    justify-content: center;
-    padding-right: 50px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background-image: linear-gradient(to right, #0B345C,#0f1622);
-    transition: 1s;
-    position: fixed;
-    width: 100%;
-    top:0;
-    z-index: 100;
-}
-
-.nav-link {
-    font-size: 1rem;
-    text-transform: uppercase;
-}
-
-.nav-link::after {
-    display:block;
-    content: '';
-    border-bottom: solid 3px #D8345C;  
-    transform: scaleX(0);
-    transition: transform 0.2s;
-    transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-}
-
-.nav-link-white {
-    display: block;
-    margin:10px 20px;
-    color: #f5f5f5ef;
-    text-decoration: none;
-    transition: color 0.5s;
-}
-  
-.nav-link:hover a {
-    display: block;
-    margin:10px 20px;
-    color: #D8345C;
-    text-decoration: none;
-}
-
-.nav-link:hover::after {
-   transform: scaleX(1);
-}
-
-.nav-white {
-    background-image: linear-gradient(to right, #fff,#fff);
-    /* color: #0B345C; */
-    opacity: 0.9;
-    box-shadow: 0 1px 3px #999;
-}
-
-.nav-link-dark {
-    color: #0B345C;
-    transition: 0s;
-}
-
 /* --------main-------- */
 /* --------banner-------- */
 .banner {

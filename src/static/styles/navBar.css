@@ -100,6 +100,10 @@
     .nav-link {
         display: none;
     }
+
+    .name-wrapper {
+        display: none;
+    }
 }
 
 .nav-wrapper {
@@ -136,6 +140,25 @@
 .nav-wrapper-mobile {
     height: 100%;
     flex-direction: column;
+}
+
+.name-wrapper {
+    flex: 3;
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.name-wrapper-active {
+    display: block;
+}
+
+.name {
+    display: block;
+    margin:10px 20px;
+    color: #FFD564;
+    text-align: center;
 }
 
 .nav-link {

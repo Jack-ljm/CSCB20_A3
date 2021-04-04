@@ -20,7 +20,8 @@
                     <div class="line3"></div>
                 </div>
                 <div id="tab" class="tab-wrapper">
-                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="name-wrapper"><p class="name">Hello, {{name}}</p></div>
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('index') }}">Home</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
@@ -28,6 +29,8 @@
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('grades') }}">Grades</a></div>
+                <div class="name-wrapper"></div>
                 </div>
             </nav>
         </header>

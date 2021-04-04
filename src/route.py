@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, g, request
+from flask import Flask, render_template, url_for, g, request, session
 import os
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = b'Jack'
 
 DATABASE = "./A3.db"
 
@@ -29,6 +30,10 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+def make_dicts(cursor, row):
+    return dict((cursor.description[idx][0], value)
+                for idx, value in enumerate(row))
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -52,12 +57,13 @@ def login():
         pw = user[1]
         role = user[2]
         if password == pw:
+            session['name'] = username
             if role == 'student':
-                # return student(username)
-                return render_template('index.html')
+                session['role'] = 'student'
+                return index()
             else:
-                # return instructor(username)
-                return render_template('index.html')
+                session['role'] = 'instructor'
+                return index()
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
 
@@ -85,41 +91,127 @@ def account():
     except:
         return render_template('account-result.html', account_created=False)
 
-@app.route('/student')
-def student(username):
-    return render_template('student.html')
-
-@app.route('/instructor')
-def instructor(username):
-    return render_template('instructor.html')
+@app.route("/index")
+def index():
+    return render_template('index.html', name=session.get('name', 'not set'))
 
 @app.route('/calendar')
 def calendar():
-    return render_template('calendar.html')
+    return render_template('calendar.html', name=session.get('name', 'not set'))
 
 @app.route('/discussion-board')
 def discussionBoard():
-    return render_template('discussion-board.html')
+    return render_template('discussion-board.html', name=session.get('name', 'not set'))
 
 @app.route('/lectures')
 def lectures():
-    return render_template('lectures.html')
+    return render_template('lectures.html', name=session.get('name', 'not set'))
 
 @app.route('/tutorials')
 def tutorials():
-    return render_template('tutorials.html')
+    return render_template('tutorials.html', name=session.get('name', 'not set'))
 
 @app.route('/assignments')
 def assignments():
-    return render_template('assignments.html')
+    return render_template('assignments.html', name=session.get('name', 'not set'))
 
 @app.route('/tests')
 def tests():
-    return render_template('tests.html')
+    return render_template('tests.html', name=session.get('name', 'not set'))
 
 @app.route('/resources')
 def resources():
-    return render_template('resources.html')
+    return render_template('resources.html', name=session.get('name', 'not set'))
+
+def get_grades(types):
+    # connect to database
+    db=get_db()
+    db.row_factory = make_dicts
+
+    # get students
+    students = []
+    for student in query_db('SELECT DISTINCT username FROM grade ORDER BY username'):
+        students.append(student['username'])
+
+    # initialze a list of dictionaries based on students and types
+    grades = []
+    for student in students:
+        tmp = {}
+        tmp['username'] = student
+        for grade in query_db('SELECT type, grade FROM grade WHERE username = ?', [student]):
+            tmp[grade['type']] = grade['grade']
+        grades.append(tmp)
+
+    # fill up unavaliable grades
+    for grade in grades:
+        for t in types:
+            if t not in grade.keys():
+                grade[t] = 'N/A'
+    return grades
+
+def get_remarks():
+    # connect to database
+    db=get_db()
+    db.row_factory = make_dicts
+
+    # get remarks
+    remarks = []
+    for remark in query_db('SELECT * FROM remark ORDER BY date_time DESC'):
+        remarks.append(remark)
+
+    return remarks
+
+@app.route('/grades')
+def grades():
+    if session.get('role', 'not set') == 'student':
+        return "Hello Student"
+    elif session.get('role', 'not set') == 'instructor':
+
+        types = ["A1", "A2", "A3", "TT1", "TT2", "Final"]
+        grades = get_grades(types)
+        remarks = get_remarks()
+
+        return render_template('grades-instructor.html', name=session.get('name', 'not set'),  types=types, grades=grades, remarks=remarks)
+    else:
+        return "Session not set"
+
+@app.route('/grades', methods= ['POST'])
+def updateGrade():
+    # extract new grade from the request
+    name = request.form['name']
+    t = request.form['type']
+    oldGrade = request.form['oldGrade']
+    newGrade = request.form['newGrade']
+
+    if oldGrade == "N/A":
+        try:
+            db = get_db()
+            cur = db.execute(
+                "INSERT INTO grade values (?, ?, datetime('now'), ?)",
+                (
+                    name,
+                    t,
+                    newGrade
+                )
+            )
+            db.commit()
+        except:
+            return "error"
+    else:
+        try:
+            db = get_db()
+            cur = db.execute(
+                "UPDATE grade SET grade = ? WHERE username = ? AND type = ?",
+                (
+                    newGrade,
+                    name,
+                    t
+                )
+            )
+            db.commit()
+        except:
+            return "error"
+    return grades()
 
 @app.context_processor
 def override_url_for():

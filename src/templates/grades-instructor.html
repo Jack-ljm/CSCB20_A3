@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Index</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/grades-instructor.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:500,700,900">
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/edit.js')}}"></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="name-wrapper"><p class="name">Hello, {{name}}</p></div>
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('index') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('grades') }}">Grades</a></div>
+                <div class="name-wrapper"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+        <!--popup-->
+        <div id="popup">
+            <span class="helper"></span>
+            <div class="popup-content-wrapper">
+                <p class="popup-header blue-color center"> Edit Grade </p>
+                <form action="/grades" method="POST">
+                <p class="popup-content blue-color center">Student Name: <input id="name" class="popup-input long input-center" type="text" name="name" value="" readonly></p>
+                <p class="popup-content blue-color center">Type: <input id="type" class="popup-input input-center" type="text" name="type" value="" readonly></p>
+                <p class="popup-content blue-color center">Original Grade: <input id="grade" class="popup-input input-center" type="text" name="oldGrade" value="" readonly></p>
+                <p class="popup-content blue-color center">New Grade: <input class="popup-input" type="number" name="newGrade"></p>
+                <div class="margin"><input class="popup-button" type="submit" value="Update Grade"></div>
+                </form>
+            </div>
+        </div>
+
+        <!--tag-->
+        <div class="tag-wrapper">
+            <div class="tag-text-upper">
+                <h1 class="tag-text"> Grades </h1>
+            </div>
+            <div class="tag-lower"> </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="content-fragment blue-linear margin-top">
+                <div>
+                    <div class="table-row border-bottom">
+                        <div class="table-column"><p class="text-content highlight white-color center">Name</p></div>
+                        {% for type in types %}
+                        <div class="border-left table-column"><p class="text-content highlight white-color center">{{type}}</p></div>
+                        {% endfor %}
+                    </div>
+                    {% for grade in grades %}
+                    <div class="table-row border-bottom">
+                        <div class="table-column"><p class="text-content white-color center">{{grade['username']}}</p></div>
+                        {% for type in types %}
+                        <div class="border-left table-column">
+                            <p class="text-content white-color center">{{grade[type]}}
+                                <i class="far fa-edit icon"
+                                   name="{{grade['username']}}"
+                                   type="{{type}}"
+                                   grade="{{grade[type]}}"
+                                   onclick='handler(this);'></i>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!--tag-->
+        <div class="tag-wrapper">
+            <div class="tag-text-upper">
+                <h1 class="tag-text"> Remark Request </h1>
+            </div>
+            <div class="tag-lower"> </div>
+        </div>
+
+        <div class="content-wrapper">
+            {% for remark in remarks %}
+            <div class="content-fragment blue-linear margin-top">
+                <div>
+                    <h1 class="text-header yellow-color">Student Name: {{remark['username']}}</h1>
+                    <p class="text-content-2 white-color">Student Works: {{remark['type']}}</p>
+                    <p class="text-content-2 white-color">Request: {{remark['request']}}</p>
+                    <p class="text-content-2 yellow-color highlight-end">
+                        {{remark['date_time']}}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+                          c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
+                          c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
+                </svg>
+                <div class="footer-text-background">
+                    <div class="footer-text-wrapper">
+                        <div class="link-wrapper">
+                            <a class="link-text" href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science">Faculty of Computer Science at UofT</a>
+                        </div>
+                        <div>
+                            <p class="blurb-text">&copy; 2021 JinMing Liu & Chiaho Lee</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
