@@ -2,10 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Discussion Board</title>
-        <meta http-equiv="refresh" content="1.2; url = http://piazza.com/utoronto.ca/winter2021/cscb63h3slec01/home"/>
-        <link rel="stylesheet" href="../static/styles/discussion-board-style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Feedback Submitted</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/submitted-style.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
         <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
@@ -22,7 +21,7 @@
                 </div>
                 <div id="tab" class="tab-wrapper">
                 <div class="name-wrapper"><p class="name">Hello, {{name}}</p></div>
-                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('index') }}">Home</a></div>
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
@@ -37,12 +36,21 @@
         </header>
         <main>
             <div class="content-wrapper">
-                <div class="text loading-animation">
-                    ... Redirecting to Discussion Board
+                <div class="message-wrapper">
+                    <div class="col-75">
+                        {{ msg }}
+                    </div>
+                    <div class="col-25">
+                        <img src="../static/images/pochita.jpg" width="250">
+                    </div>
                 </div>
             </div>
+            <div class="botton-wrapper">
+                <a href="{{ url_for('resources') }}" style="color:black" type="botton">
+                    Click here to return to previous section
+                </a>
+            </div>
+            <br><br>
         </main>
     </body>
-
-
 </html>

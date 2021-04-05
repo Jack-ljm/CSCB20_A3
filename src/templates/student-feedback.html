@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Student Feedback</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/student-feedback-style.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
+        <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
+    </head>
+    <body>
+        <header class="header">
+            <!-- nav bar -->
+            <nav id="nav-bar-id" class="nav-wrapper">
+                <div id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div id="tab" class="tab-wrapper">
+                <div class="name-wrapper"><p class="name">Hello, {{name}}</p></div>
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tutorials') }}">Tutorials</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('assignments') }}">Assignments</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('tests') }}">Tests</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('resources') }}">Resources & Feedback</a></div>
+                <div class="nav-link"><a class="nav-link-white" href="{{ url_for('grades') }}">Grades</a></div>
+                <div class="name-wrapper"><a class="nav-link-white" href="/logout">Logout</a></div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!--Title-->
+            <div class="title-wrapper">
+                <div class="title-text">
+                    Anonymous Feedback
+                </div>
+                <div class="title-line"></div>
+                <div class="title-description-text">
+                    Please leave us some feedback! <br>
+                    Feedback will appear anonymous to the instructor. 
+                </div>
+            </div>
+
+            <!--Content-->
+            <div class="content-wrapper">
+                <div class="feedback-element">
+                    <div>
+                        <div class="feedback-title">
+                        </div>
+
+                        <div class="feedback-form-wrapper">
+                            <form action="{{ url_for('feedbackSubmitted') }}" method="POST">
+                                <div class="question">
+                                    I am writing feedback to: 
+                                    <select id="instructor" name="instructor">
+                                        {% for row in rows %}
+                                        <option value={{row['username']}}> {{row['username']}} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="question">
+                                    <label for="question-a"> 
+                                        (a) What do you like about the instructor teaching?
+                                    </label><br><br>
+                                    <textarea id="feedback-qa" name="feedback-qa" 
+                                    placeholder="Enter your feedback here"></textarea>
+                                </div>
+                                
+                                <div class="question">
+                                    <label for="question-b"> 
+                                        (b) What do you recommend the instructor to do to improve their teaching?
+                                    </label><br><br>
+                                    <textarea id="feedback-qb" name="feedback-qb" 
+                                    placeholder="Enter your feedback here"></textarea>
+                                </div>
+
+                                <div class="question">
+                                    <label for="question-c"> 
+                                        (c) What do you like about the labs?
+                                    </label><br><br>
+                                    <textarea id="feedback-qc" name="feedback-qc" 
+                                    placeholder="Enter your feedback here"></textarea>
+                                </div>
+
+                                <div class="question">
+                                    <label for="question-d"> 
+                                        (d) What do you recommend the lab instructors to do to improve their lab teaching?
+                                    </label> <br><br>
+                                    <textarea id="feedback-qd" name="feedback-qd" 
+                                    placeholder="Enter your feedback here"></textarea>
+                                </div>
+
+                                <br> <br>
+                                <input type="submit" value="submit" >
+
+                            </form>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </main>
+    </body>
+</html>
