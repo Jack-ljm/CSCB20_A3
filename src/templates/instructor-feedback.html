@@ -1,19 +1,19 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calendar</title>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/calendar.css') }}">
+        <title>Index</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/grades-instructor.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:500,700,900">
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
         <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
         <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
     </head>
- 
+
     <body>
         <header class="header">
-            <!-- nav bar -->
             <nav id="nav-bar-id" class="nav-wrapper">
                 <div id="burger">
                     <div class="line1"></div>
@@ -37,8 +37,36 @@
             </nav>
         </header>
 
-        <main class="calendar-wrapper">
-            <div class="center"><iframe class="center" src="https://calendar.google.com/calendar/embed?src=en.canadian%23holiday%40group.v.calendar.google.com&ctz=America%2FToronto" style="border: 0" width="900" height="700" frameborder="0" scrolling="no"></iframe></div>
+        <main>
+        <!--tag-->
+        <div class="tag-wrapper">
+            <div class="tag-text-upper">
+                <h1 class="tag-text"> Feedback </h1>
+            </div>
+            <div class="tag-lower"> </div>
+        </div>
+
+        <div class="content-wrapper">
+            {% for feedback in feedbacks %}
+            <div class="content-fragment blue-linear margin-top">
+                <div>
+                    <h1 class="text-header yellow-color">To: {{feedback['feedback_to']}}</h1>
+                    <p class="text-content-2 white-color">Q: What do you like about the instructor teaching?</p>
+                    <p class="text-content-2 white-color">A: {{feedback['question_a']}}</p>
+                    <p class="text-content-2 white-color">Q: What do you recommend the instructor to do to improve their teaching?</p>
+                    <p class="text-content-2 white-color">A: {{feedback['question_b']}}</p>
+                    <p class="text-content-2 white-color">Q: What do you like about the labs?</p>
+                    <p class="text-content-2 white-color">A: {{feedback['question_c']}}</p>
+                    <p class="text-content-2 white-color">Q: What do you recommend the lab instructors to do to improve their lab teaching?</p>
+                    <p class="text-content-2 white-color">A: {{feedback['question_d']}}</p>
+                    <p class="text-content-2 yellow-color highlight-end">
+                        {{feedback['date_time']}}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
         </main>
 
         <footer class="footer">

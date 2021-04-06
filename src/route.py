@@ -130,44 +130,37 @@ def instructor(username):
 @app.route('/calendar')
 @login_required
 def calendar():
-    return render_template('calendar.html', name=session.get('name', 'not set'))
+    return render_template('calendar.html', name=session.get('username', 'not set'))
 
 @app.route('/discussion-board')
 @login_required
 def discussionBoard():
-    return render_template('discussion-board.html', name=session.get('name', 'not set'))
+    return render_template('discussion-board.html', name=session.get('username', 'not set'))
 
 @app.route('/lectures')
 @login_required
 def lectures():
-    return render_template('lectures.html', name=session.get('name', 'not set'))
+    return render_template('lectures.html', name=session.get('username', 'not set'))
 
 @app.route('/tutorials')
 @login_required
 def tutorials():
-    return render_template('tutorials.html', name=session.get('name', 'not set'))
+    return render_template('tutorials.html', name=session.get('username', 'not set'))
 
 @app.route('/assignments')
 @login_required
 def assignments():
-    return render_template('assignments.html', name=session.get('name', 'not set'))
+    return render_template('assignments.html', name=session.get('username', 'not set'))
 
 @app.route('/tests')
 @login_required
 def tests():
-    return render_template('tests.html', name=session.get('name', 'not set'))
+    return render_template('tests.html', name=session.get('username', 'not set'))
 
 @app.route('/resources')
 @login_required
 def resources():
-    return render_template('resources.html', name=session.get('name', 'not set'))
-
-@app.route('/student-feedback')
-@login_required
-def studentFeedback():
-    rows = getInstructors()
-
-    return render_template('student-feedback.html', rows = rows, name=session.get('username', 'not set'))
+    return render_template('resources.html', name=session.get('username', 'not set'))
 
 def getInstructors():
     #connect to the database
@@ -179,6 +172,31 @@ def getInstructors():
     
     rows = cur.fetchall()
     return rows
+
+def get_feedback(name):
+    #connect to the database
+    db = get_db()
+    db.row_factory = make_dicts
+
+    cur = db.cursor()
+    cur.execute("select * from feedback where feedback_to= ?", [name])
+    
+    rows = cur.fetchall()
+    return rows
+
+@app.route('/feedback')
+@login_required
+def feedback():
+    if session.get('role', 'not set') == 'student':
+        rows = getInstructors()
+        return render_template('student-feedback.html', rows = rows, name=session.get('username', 'not set'))
+
+    elif session.get('role', 'not set') == 'instructor':
+        feedbacks = get_feedback(session.get('username', 'not set'))
+        return render_template('instructor-feedback.html', feedbacks = feedbacks, name=session.get('username', 'not set'))
+
+    else:
+        return "Session not set"
 
 @app.route('/feedback-submitted', methods= ['POST', 'GET'])
 @login_required
@@ -288,7 +306,7 @@ def grades():
         grades = get_grades(types)
         remarks = get_remarks()
 
-        return render_template('grades-instructor.html', name=session.get('name', 'not set'),  types=types, grades=grades, remarks=remarks)
+        return render_template('grades-instructor.html', name=session.get('username', 'not set'),  types=types, grades=grades, remarks=remarks)
     else:
         return "Session not set"
 
