@@ -28,6 +28,7 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+# to be used for querying through the database
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
@@ -38,6 +39,7 @@ def make_dicts(cursor, row):
     return dict((cursor.description[idx][0], value)
                 for idx, value in enumerate(row))
 
+# prevents users from accessing pages through URL
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -83,6 +85,7 @@ def login():
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
 
+# resets login credentials in the session
 @app.route('/logout')
 def logout():
     session['username'] = None
@@ -93,6 +96,7 @@ def logout():
 def signup():
     return render_template('account.html')
 
+# creates account by submitting the new information into user db
 @app.route('/account', methods = ['POST'])
 def account():
     username = request.form['username']
