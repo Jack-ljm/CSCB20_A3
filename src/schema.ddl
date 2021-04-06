@@ -18,8 +18,7 @@ CREATE TABLE grade(
 );
 
 CREATE TABLE feedback(
-  username TEXT NOT NULL REFERENCES user(username) ON DELETE RESTRICT,
-  feedback_to TEXT,
+  feedback_to TEXT NOT NULL REFERENCES user(username) ON DELETE RESTRICT,
   date_time TEXT PRIMARY KEY,
   question_a TEXT,
   question_b TEXT,
@@ -32,5 +31,6 @@ CREATE TABLE remark(
   type TEXT NOT NULL,
   date_time TEXT NOT NULL,
   request TEXT NOT NULL,
+  status TEXT NOT NULL,
   PRIMARY KEY(username, type, date_time)
 );
