@@ -134,37 +134,103 @@ def instructor(username):
 @app.route('/calendar')
 @login_required
 def calendar():
-    return render_template('calendar.html', name=session.get('name', 'not set'))
+    return render_template('calendar.html', name=session.get('username', 'not set'))
 
 @app.route('/discussion-board')
 @login_required
 def discussionBoard():
-    return render_template('discussion-board.html', name=session.get('name', 'not set'))
+    return render_template('discussion-board.html', name=session.get('username', 'not set'))
 
 @app.route('/lectures')
 @login_required
 def lectures():
-    return render_template('lectures.html', name=session.get('name', 'not set'))
+    return render_template('lectures.html', name=session.get('username', 'not set'))
 
 @app.route('/tutorials')
 @login_required
 def tutorials():
-    return render_template('tutorials.html', name=session.get('name', 'not set'))
+    return render_template('tutorials.html', name=session.get('username', 'not set'))
 
 @app.route('/assignments')
 @login_required
 def assignments():
-    return render_template('assignments.html', name=session.get('name', 'not set'))
+    return render_template('assignments.html', name=session.get('username', 'not set'))
 
 @app.route('/tests')
 @login_required
 def tests():
-    return render_template('tests.html', name=session.get('name', 'not set'))
+    return render_template('tests.html', name=session.get('username', 'not set'))
 
 @app.route('/resources')
 @login_required
 def resources():
-    return render_template('resources.html', name=session.get('name', 'not set'))
+    return render_template('resources.html', name=session.get('username', 'not set'))
+
+def getInstructors():
+    #connect to the database
+    db = get_db()
+    db.row_factory = make_dicts
+
+    cur = db.cursor()
+    cur.execute("select distinct username from user where role= ?", ['instructor'])
+    
+    rows = cur.fetchall()
+    return rows
+
+def get_feedback(name):
+    #connect to the database
+    db = get_db()
+    db.row_factory = make_dicts
+
+    cur = db.cursor()
+    cur.execute("select * from feedback where feedback_to= ?", [name])
+    
+    rows = cur.fetchall()
+    return rows
+
+@app.route('/feedback')
+@login_required
+def feedback():
+    if session.get('role', 'not set') == 'student':
+        rows = getInstructors()
+        return render_template('student-feedback.html', rows = rows, name=session.get('username', 'not set'))
+
+    elif session.get('role', 'not set') == 'instructor':
+        feedbacks = get_feedback(session.get('username', 'not set'))
+        return render_template('instructor-feedback.html', feedbacks = feedbacks, name=session.get('username', 'not set'))
+
+    else:
+        return "Session not set"
+
+@app.route('/feedback-submitted', methods= ['POST', 'GET'])
+@login_required
+def feedbackSubmitted():
+    if request.method == 'POST':
+        try:
+            print(request.form)
+            inst = request.form['instructor']
+            qa = request.form['feedback-qa']
+            qb = request.form['feedback-qb']
+            qc = request.form['feedback-qc']
+            qd = request.form['feedback-qd']
+
+            username=session.get('name', 'not set')
+            
+            db = get_db()
+            cur = db.execute(
+                "INSERT INTO feedback(username,feedback_to,date_time,question_a,question_b,question_c,question_d) values (?,?,datetime('now'),?,?,?,?)",
+                (username,inst,qa,qb,qc,qd) 
+            )
+            
+            db.commit()
+            msg = "Feedback has been recieved. Thank your for your feedback!"
+        except:
+            msg = "There is an error in insert operation. Please fill it in again."
+
+        finally:
+            return render_template('feedback-submitted.html', msg = msg, name=session.get('username', 'not set'))
+    return render_template('feedback-submitted.html', name=session.get('username', 'not set'))
+
 
 def get_grades(types):
     # connect to database
@@ -204,21 +270,52 @@ def get_remarks():
 
     return remarks
 
+def getMyGrades(types):
+    #Student side
+    #connect to the database
+    db = get_db()
+    db.row_factory = make_dicts
+
+    username=session.get('username', 'not set')
+    cur = db.cursor()
+    cur.execute("select * from grade where username= ?", [username])
+    
+    rows = cur.fetchall()
+
+    #making empty 'type' are shown as 'grade': 0 
+    exist = False
+    temp = {}
+    for t in types:
+        for r in rows:
+            if r['type'] == t: exist = True
+        if not exist:
+            temp = {'username' : username, 'type': t, 'date_time': 'N/A', 'grade': 0}
+            rows.append(temp)
+        exist=False
+
+    return rows
+
 @app.route('/grades')
+@login_required
 def grades():
+    types = ["A1", "A2", "A3","Labs", "TT1", "TT2", "Final"]
+    
     if session.get('role', 'not set') == 'student':
-        return "Hello Student"
+        rows = getMyGrades(types)
+
+        return render_template('my-grade.html', rows = rows, username=session.get('username', 'not set'))
+
     elif session.get('role', 'not set') == 'instructor':
 
-        types = ["A1", "A2", "A3", "TT1", "TT2", "Final"]
         grades = get_grades(types)
         remarks = get_remarks()
 
-        return render_template('grades-instructor.html', name=session.get('name', 'not set'),  types=types, grades=grades, remarks=remarks)
+        return render_template('grades-instructor.html', name=session.get('username', 'not set'),  types=types, grades=grades, remarks=remarks)
     else:
         return "Session not set"
 
 @app.route('/grades', methods= ['POST'])
+@login_required
 def updateGrade():
     # extract new grade from the request
     name = request.form['name']
@@ -255,6 +352,31 @@ def updateGrade():
         except:
             return "error"
     return grades()
+
+@app.route('/remark-request-submitted', methods= ['POST', 'GET'])
+@login_required
+def remarkRequestSubmitted():
+    if request.method == 'POST':
+        try:
+            markType = request.form['mark-type']
+            requestText = request.form['remark-request']
+            username=session.get('username', 'not set')
+
+            db = get_db()
+            cur = db.execute(
+                "INSERT INTO remark(username,type,date_time,request) VALUES (?,?,datetime('now'),?)",
+                (username,markType,requestText) 
+            )
+
+            db.commit()
+            msg = ("Remark Request for " + markType + " has been recieved. Please be patient")
+
+        except:
+            msg = "Something went wrong in requesting remark. Please fill it in again."
+
+        finally:
+            return render_template('remark-submitted.html', msg = msg, name=session.get('username', 'not set'))
+    return render_template('remark-submitted.html', name=session.get('username', 'not set'))
 
 @app.context_processor
 def override_url_for():

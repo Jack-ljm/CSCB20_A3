@@ -2,14 +2,14 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tests</title>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/assignments-tests.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>My Grade</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/my-grade-style.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
         <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
         <script src = "{{url_for('static', filename='javascripts/tab.js')}}" defer></script>
     </head>
-
     <body>
         <header class="header">
             <!-- nav bar -->
@@ -20,8 +20,8 @@
                     <div class="line3"></div>
                 </div>
                 <div id="tab" class="tab-wrapper">
-                <div class="name-wrapper"><p class="name">Hello, {{name}}</p></div>
-                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('index') }}">Home</a></div>
+                <div class="name-wrapper"><p class="name">Hello, {{username}}</p></div>
+                <div class="nav-link"><a id="home-id" class="nav-link-white" href="{{ url_for('home') }}">Home</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('calendar') }}">Calendar</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('discussionBoard') }}">Discussion Board</a></div>
                 <div class="nav-link"><a class="nav-link-white" href="{{ url_for('lectures') }}">Lectures</a></div>
@@ -35,44 +35,70 @@
                 </div>
             </nav>
         </header>
-
         <main>
-            <!--tag-->
-            <div class="tag-wrapper">
-                <div class="tag-text-upper">
-                    <h1 class="tag-text"> Test </h1>
+            <!--Title-->
+            <div class="title-wrapper">
+                <div class="title-text">
+                    Grades for {{username}}
                 </div>
-                <div class="tag-lower"> </div>
+                <div class="title-line"></div>
+                <div class="title-description-text">
+                    If you wish for remark request, click on the botton besides the. 
+                </div>
             </div>
-            <div class="content-wrapper"> 
-                <div class="content-fragment blue-linear margin-top">
-                    <div>
-                        <h1 class="text-header yellow-color">Term Test 1</h1>
-                        <p class="text-content white-color">
-                            Feb. 17
-                        </p>
-                        <div class="text-content white-color row">
-                            <p class="text-content underline white-color">File: </p>
-                            <a class="nav-link-white" href="{{ url_for('static',filename='pdfs/dummy.pdf') }}">tt1.pdf</a>
+            <!--Table-->
+            <div class="content-wrapper">
+                <div class="table table-wrapper">
+                    <div class="content-row">
+                        <div class="header-element"> <h2>Item</h2> </div>
+                        <div class="header-element"> <h2>Graded Date</h2> </div>
+                        <div class="header-element"> <h2>Score</h2> </div>
+                        <div class="header-element"> <h2>Remark Request</h2> </div>
+                    </div>
+                    {% for row in rows %}
+                    <!-- <div> {{row}}</div> -->
+                    <div class="content-row row-color-a">
+                        <div class="content-element"> {{row['type']}} </div>
+                        <div class="content-element"> {{row['date_time']}} </div>
+                        <div class="content-element"> {{row['grade']}} </div>
+                        <div class="content-element"> 
+                            <a class="button" href="#remark-request-form">Request</a>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
+            </div>
+            <div id="remark-request-form"></div>
+            <div class="request-form-wrapper">
+                <form id="" action="{{ url_for('remarkRequestSubmitted') }}" method="POST">
+                    <div class="">
+                        <div class="">
+                            <label for="request-title"> 
+                                I am requesting remark for: 
+                            </label> 
+                            <select id="mark-type" name="mark-type">
+                                {% for row in rows %}
+                                <option name="assignment-type" value={{row['type']}} > 
+                                    {{row['type']}} 
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                <div class="content-fragment yellow-linear margin-top">
-                    <div>
-                        <h1 class="text-header pink-color">Term Test 2</h1>
-                        <p class="text-content black-color">
-                            Mar. 5
-                        </p>
-                        <div class="text-content black-color row">
-                            <p class="text-content underline black-color">File: </p>
-                            <a class="link black-color" href="{{ url_for('static',filename='pdfs/dummy.pdf') }}">tt2.pdf</a>
+                        <div class="">
+                            <label for="request-title"> 
+                                Request Explanation:
+                            </label> <br> <br>
+                            <textarea id="remark-request" name="remark-request" 
+                            placeholder="Please indicate reason for remark."></textarea>
                         </div>
                     </div>
-                </div>
+                    <br> <br>
+                    <input type="submit" value="submit" >
+                </form>
             </div>
+
         </main>
-
         <footer class="footer">
             <div class="footer-wrapper">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
