@@ -45,11 +45,12 @@
             <div class="popup-content-wrapper">
                 <p class="popup-header blue-color center"> Edit Grade </p>
                 <form action="/grades" method="POST">
-                <p class="popup-content blue-color center">Student Name: <input id="name" class="popup-input long input-center" type="text" name="name" value="" readonly></p>
-                <p class="popup-content blue-color center">Type: <input id="type" class="popup-input input-center" type="text" name="type" value="" readonly></p>
-                <p class="popup-content blue-color center">Original Grade: <input id="old-grade" class="popup-input input-center" type="text" name="oldGrade" value="" readonly></p>
-                <p class="popup-content blue-color center">New Grade: <input id="new-grade" class="popup-input" type="number" name="newGrade"></p>
-                <div class="margin"><input class="popup-button" type="submit" value="Update Grade"></div>
+                    <input class="hidden" type="text" name="action" value="editGrade"></p>
+                    <p class="popup-content blue-color center">Student Name: <input id="name" class="popup-input long input-center" type="text" name="name" value="" readonly></p>
+                    <p class="popup-content blue-color center">Type: <input id="type" class="popup-input input-center" type="text" name="type" value="" readonly></p>
+                    <p class="popup-content blue-color center">Original Grade: <input id="old-grade" class="popup-input input-center" type="text" name="oldGrade" value="" readonly></p>
+                    <p class="popup-content blue-color center">New Grade: <input id="new-grade" class="popup-input" type="number" name="newGrade"></p>
+                    <div class="margin"><input class="popup-button" type="submit" value="Update Grade"></div>
                 </form>
             </div>
         </div>
@@ -106,10 +107,31 @@
                     <h1 class="text-header yellow-color">Student Name: {{remark['username']}}</h1>
                     <p class="text-content-2 white-color">Student Works: {{remark['type']}}</p>
                     <p class="text-content-2 white-color">Request: {{remark['request']}}</p>
+                    <p class="text-content-2 white-color">Submission Time: {{remark['date_time']}}</p>
                     <p class="text-content-2 yellow-color highlight-end">
-                        {{remark['date_time']}}
+                        Status: {{remark['status']}}
                     </p>
                 </div>
+                {% if remark['status'] == 'Not yet started' %}
+                <div class="button-center">
+                    <form action="/grades" method="POST">
+                        <input class="hidden" type="text" name="action" value="startRemarking"></p>
+                        <input class="hidden" type="text" name="name" value="{{remark['username']}}"></p>
+                        <input class="hidden" type="text" name="date-time" value="{{remark['date_time']}}"></p>
+                        <div class="margin"><input class="remark-button" type="submit" value="Start Remarking"></div>
+                    </form>
+                </div>
+                {% endif %}
+                {% if remark['status'] == 'In progress' %}
+                <div class="button-center">
+                    <form action="/grades" method="POST">
+                        <input class="hidden" type="text" name="action" value="doneRemarking"></p>
+                        <input id="remark-student-name" class="hidden" type="text" name="name" value="{{remark['username']}}" readonly></p>
+                        <input id="remark-date-time" class="hidden" type="text" name="date-time" value="{{remark['date_time']}}" readonly></p>
+                        <div class="margin"><input class="remark-button" type="submit" value="Done remarking"></div>
+                    </form>
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

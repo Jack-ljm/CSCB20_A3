@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>My Grade</title>
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/my-grade-style.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/grades-instructor.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/navBar.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Raleway:500,700,900" rel="stylesheet">
         <script src = "{{url_for('static', filename='javascripts/nav.js')}}" defer></script>
@@ -96,6 +97,29 @@
                     <br> <br>
                     <input type="submit" value="submit" >
                 </form>
+            </div>
+
+            <!--tag-->
+            <div class="tag-wrapper">
+                <div class="tag-text-upper">
+                    <h1 class="tag-text"> My Remark Request </h1>
+                </div>
+                <div class="tag-lower"> </div>
+            </div>
+
+            <div class="content-wrapper">
+                {% for remark in remarks %}
+                <div class="content-fragment blue-linear margin-top">
+                    <div>
+                        <h1 class="text-header yellow-color">From: {{remark['username']}}</h1>
+                        <p class="text-content-2 white-color">Student Works: {{remark['type']}}</p>
+                        <p class="text-content-2 white-color">Request: {{remark['request']}}</p>
+                        <p class="text-content-2 white-color">Submission Time: {{remark['date_time']}}</p>
+                        <p class="text-content-2 yellow-color highlight-end">
+                            Status: {{remark['status']}}
+                        </p>
+                    </div>
+                {% endfor %}
             </div>
 
         </main>

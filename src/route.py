@@ -291,6 +291,20 @@ def getMyGrades(types):
 
     return rows
 
+def getMyRemarks():
+    # connect to database
+    db=get_db()
+    db.row_factory = make_dicts
+
+    # get username of the current user
+    username=session.get('username', 'not set')
+    # get remarks
+    remarks = []
+    for remark in query_db('SELECT * FROM remark WHERE username = ? ORDER BY date_time DESC', [username]):
+        remarks.append(remark)
+
+    return remarks
+
 @app.route('/grades')
 @login_required
 def grades():
@@ -298,11 +312,12 @@ def grades():
     
     if session.get('role', 'not set') == 'student':
         rows = getMyGrades(types)
+        remarks = getMyRemarks()
 
-        return render_template('my-grade.html', rows = rows, username=session.get('username', 'not set'))
+        return render_template('my-grade.html', rows = rows, username=session.get('username', 'not set'), remarks=remarks)
 
     elif session.get('role', 'not set') == 'instructor':
-
+        
         grades = get_grades(types)
         remarks = get_remarks()
 
@@ -310,8 +325,6 @@ def grades():
     else:
         return "Session not set"
 
-@app.route('/grades', methods= ['POST'])
-@login_required
 def updateGrade():
     # extract new grade from the request
     name = request.form['name']
@@ -348,6 +361,38 @@ def updateGrade():
         except:
             return "error"
     return grades()
+
+def updateRemark(status):
+    # extract new grade from the request
+    name = request.form['name']
+    date_time = request.form['date-time']
+
+    try:
+        db = get_db()
+        cur = db.execute(
+            "UPDATE remark SET status = ? WHERE username = ? AND date_time = ?",
+            (
+                status,
+                name,
+                date_time
+            )
+        )
+        db.commit()
+    except:
+        return "error"
+
+    return grades()
+
+@app.route('/grades', methods= ['POST'])
+@login_required
+def update():
+    action = request.form['action']
+    if action == 'editGrade':
+        return updateGrade()
+    elif action == "startRemarking":
+        return updateRemark('In progress')
+    elif action == "doneRemarking":
+        return updateRemark('Addressed')
 
 @app.route('/remark-request-submitted', methods= ['POST', 'GET'])
 @login_required
