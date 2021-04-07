@@ -157,6 +157,10 @@ body{
     margin: auto;
 }
 
+.button-center {
+    text-align: center;
+}
+
 .blue-linear {
     background-image: linear-gradient(to right, #0B345C,#0f1622);
 }
@@ -238,6 +242,25 @@ body{
     text-decoration: underline;
     font-weight: 700;
     font-size: 1.3rem;
+}
+
+.remark-button {
+    margin-top: 10px;
+    width: 200px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 3px solid #FFD564;
+    border-radius: 5px;
+    margin: auto;
+    font-size: 1.5rem;
+    font-weight: 550;
+    color: #0B345C;
+    background-color: #FFD564;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
 
 /* --------footer-------- */

@@ -45,7 +45,10 @@ INSERT INTO feedback VALUES
 INSERT INTO remark VALUES
 ('Jack', 'A1', datetime('now'), 'I would like to remark', 'request'),
 ('Katrina', 'A2', datetime('now'), 'I would like to remark', 'request'),
-('Levi', 'Labs', datetime('now'), 'I think I deserve better mark', 'request'),
-('Levi', 'Midterm', datetime('now'), 'Because I can', 'closed'),
-('Levi', 'A1', datetime('now'), 'I want remark', 'closed')
+('Jack', 'A1', datetime('now'), 'I would like to remark', 'Not yet started'),
+('Katrina', 'A2', datetime('now'), 'I would like to remark', 'In progress'),
+
+('Levi', 'Labs', datetime('now'), 'I think I deserve better mark', 'Addressed'),
+('Levi', 'Midterm', datetime('now'), 'Because I can', 'Not yet started'),
+('Levi', 'A1', datetime('now'), 'I want remark', 'In progress')
 ;
