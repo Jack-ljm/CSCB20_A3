@@ -48,5 +48,8 @@ INSERT INTO remark VALUES
 
 ('Levi', 'Labs', datetime('now'), 'I think I deserve better mark', 'Addressed'),
 ('Levi', 'Midterm', datetime('now'), 'Because I can', 'Not yet started'),
-('Levi', 'A1', datetime('now'), 'I want remark', 'In progress')
+('Levi', 'A1', datetime('now'), 'I want remark', 'In progress'),
+('student1', 'Labs', datetime('now'), 'I think I deserve better mark', 'Addressed'),
+('student1', 'Midterm', datetime('now'), 'Because I can', 'Not yet started'),
+('student1', 'A1', datetime('now'), 'I want remark', 'In progress')
 ;

@@ -169,6 +169,18 @@ main{
 }
 
 /* --------Remark Request Form-------- */
+.remark-request-title-wrapper{
+    margin: 40px 10% 0px 10%;
+    font-size: 1.9rem;
+}
+.request-status{
+    display: flex;
+    border: 2px solid #0B345C;
+    margin: 20px 8% 8% 8%;
+    padding: 3%;
+    border-radius: 15px;
+}
+
 .request-form-wrapper{
     border: 2px solid #0B345C;
     margin: 8%;
