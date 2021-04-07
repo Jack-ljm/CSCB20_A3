@@ -57,7 +57,6 @@
                         <div class="header-element"> <h2>Remark Request</h2> </div>
                     </div>
                     {% for row in rows %}
-                    <!-- <div> {{row}}</div> -->
                     <div class="content-row row-color-a">
                         <div class="content-element"> {{row['type']}} </div>
                         <div class="content-element"> {{row['date_time']}} </div>
@@ -79,7 +78,7 @@
                             </label> 
                             <select id="mark-type" name="mark-type">
                                 {% for row in rows %}
-                                <option name="assignment-type" value={{row['type']}} > 
+                                <option name="assignment-type" value="{{row['type']}}" > 
                                     {{row['type']}} 
                                 </option>
                                 {% endfor %}

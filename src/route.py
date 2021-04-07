@@ -312,31 +312,38 @@ def getMyRemarks():
 @app.route('/grades')
 @login_required
 def grades():
+    # define the types of assignments and exams
     types = ["A1", "A2", "A3","Labs", "TT1", "TT2", "Final"]
     
+    # check the role of the current user
     if session.get('role', 'not set') == 'student':
+        # render my-grade.html if the current user is a student
         rows = getMyGrades(types)
         remarks = getMyRemarks()
 
         return render_template('my-grade.html', rows = rows, username=session.get('username', 'not set'), remarks=remarks)
 
     elif session.get('role', 'not set') == 'instructor':
-        
+        # render grades-instructor.html if the current user is an instructor
         grades = get_grades(types)
         remarks = get_remarks()
 
         return render_template('grades-instructor.html', name=session.get('username', 'not set'),  types=types, grades=grades, remarks=remarks)
     else:
+        # this case is impossible since login is required
         return "Session not set"
 
 def updateGrade():
-    # extract new grade from the request
+    # extract form information from the request
     name = request.form['name']
     t = request.form['type']
     oldGrade = request.form['oldGrade']
     newGrade = request.form['newGrade']
 
+    # check the old grade
     if oldGrade == "N/A":
+        # if the old grade is not avaliable,
+        # try to insert the new grade into the database
         try:
             db = get_db()
             cur = db.execute(
@@ -351,6 +358,8 @@ def updateGrade():
         except:
             return "error"
     else:
+        # if the old grade is also in the database,
+        # try to update the database with the new grade
         try:
             db = get_db()
             cur = db.execute(
@@ -367,10 +376,11 @@ def updateGrade():
     return grades()
 
 def updateRemark(status):
-    # extract new grade from the request
+    # extract form information from the request
     name = request.form['name']
     date_time = request.form['date-time']
 
+    # Try to update the status of the remark
     try:
         db = get_db()
         cur = db.execute(
@@ -385,11 +395,14 @@ def updateRemark(status):
     except:
         return "error"
 
+    # render the grades page again
     return grades()
 
 @app.route('/grades', methods= ['POST'])
 @login_required
 def update():
+    # there are three possible actions in the grades page
+    # call the corresponding function based on actions
     action = request.form['action']
     if action == 'editGrade':
         return updateGrade()

@@ -33,5 +33,5 @@ CREATE TABLE remark(
   date_time TEXT NOT NULL,
   request TEXT NOT NULL,
   status TEXT NOT NULL,
-  PRIMARY KEY(username, type, date_time)
+  PRIMARY KEY(username, date_time)
 );
