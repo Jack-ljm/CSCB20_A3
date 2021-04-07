@@ -4,14 +4,14 @@
 ### Windows
 ```bash
 cd src
-set FLASK_APP=route.py
+set FLASK_APP=app.py
 set FLASK_ENV=development
 flask run
 ```
 ### MacOS
 ```bash
 cd src
-env FLASK_APP=route.py
+env FLASK_APP=app.py
 export FLASK_ENV=development
 flask run
 ```
