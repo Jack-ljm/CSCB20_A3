@@ -401,18 +401,14 @@ def remarkRequestSubmitted():
                 if curRequest['type'] == markType:
                     existR = True
             
-            
-            print(markType)
-            print(existR)
-            print(username)
-
             if existR:
                 #update table as it is already existed
                 cur = db.execute(
                     
-                    "UPDATE remark SET status = ? WHERE username = ? AND type = ?",
+                    "UPDATE remark SET status = ?, request = ? WHERE username = ? AND type = ?",
                     (
-                        'request',
+                        'Not yet started',
+                        requestText,
                         username, 
                         markType
                     ) 
@@ -420,7 +416,7 @@ def remarkRequestSubmitted():
             elif not existR:
                 #insert into table
                 cur = db.execute(
-                    "INSERT INTO remark(username,type,date_time,request,status) VALUES (?,?,datetime('now'),?,'request')",
+                    "INSERT INTO remark(username,type,date_time,request,status) VALUES (?,?,datetime('now'),?,'Not yet started')",
                     (username,markType,requestText) 
                 )
 

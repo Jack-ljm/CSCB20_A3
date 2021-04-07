@@ -110,30 +110,6 @@
                     <input type="submit" value="submit" >
                 </form>
             </div>
-
-            <!--tag-->
-            <div class="tag-wrapper">
-                <div class="tag-text-upper">
-                    <h1 class="tag-text"> My Remark Request </h1>
-                </div>
-                <div class="tag-lower"> </div>
-            </div>
-
-            <div class="content-wrapper">
-                {% for remark in remarks %}
-                <div class="content-fragment blue-linear margin-top">
-                    <div>
-                        <h1 class="text-header yellow-color">From: {{remark['username']}}</h1>
-                        <p class="text-content-2 white-color">Student Works: {{remark['type']}}</p>
-                        <p class="text-content-2 white-color">Request: {{remark['request']}}</p>
-                        <p class="text-content-2 white-color">Submission Time: {{remark['date_time']}}</p>
-                        <p class="text-content-2 yellow-color highlight-end">
-                            Status: {{remark['status']}}
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-
         </main>
         <footer class="footer">
             <div class="footer-wrapper">
