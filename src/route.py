@@ -3,6 +3,7 @@ from functools import wraps
 from flask_session import Session
 import os
 import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -218,8 +219,8 @@ def feedbackSubmitted():
             
             db = get_db()
             cur = db.execute(
-                "INSERT INTO feedback(username,feedback_to,date_time,question_a,question_b,question_c,question_d) values (?,?,datetime('now'),?,?,?,?)",
-                (username,inst,qa,qb,qc,qd) 
+                "INSERT INTO feedback(username,feedback_to,date_time,question_a,question_b,question_c,question_d) values (?,?,?,?,?,?,?)",
+                (username,inst,datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),qa,qb,qc,qd) 
             )
             
             db.commit()
@@ -347,10 +348,11 @@ def updateGrade():
         try:
             db = get_db()
             cur = db.execute(
-                "INSERT INTO grade values (?, ?, datetime('now'), ?)",
+                "INSERT INTO grade values (?, ?, ?, ?)",
                 (
                     name,
                     t,
+                    datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),
                     newGrade
                 )
             )
@@ -363,9 +365,10 @@ def updateGrade():
         try:
             db = get_db()
             cur = db.execute(
-                "UPDATE grade SET grade = ? WHERE username = ? AND type = ?",
+                "UPDATE grade SET grade = ?, date_time = ? WHERE username = ? AND type = ?",
                 (
                     newGrade,
+                    datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),
                     name,
                     t
                 )
@@ -422,8 +425,8 @@ def remarkRequestSubmitted():
 
             db = get_db()
             cur = db.execute(
-                "INSERT INTO remark(username,type,date_time,request) VALUES (?,?,datetime('now'),?)",
-                (username,markType,requestText) 
+                "INSERT INTO remark(username,type,date_time,request) VALUES (?,?,?,?)",
+                (username,markType,datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),requestText) 
             )
 
             db.commit()

@@ -97,7 +97,8 @@
                     <input type="submit" value="submit" >
                 </form>
             </div>
-
+            
+            {% if remarkRequests == "{}" %}
             <!--tag-->
             <div class="tag-wrapper">
                 <div class="tag-text-upper">
@@ -105,7 +106,7 @@
                 </div>
                 <div class="tag-lower"> </div>
             </div>
-
+            
             <div class="content-wrapper">
                 {% for remark in remarks %}
                 <div class="content-fragment blue-linear margin-top">
@@ -120,6 +121,7 @@
                     </div>
                 {% endfor %}
             </div>
+            {% endif %}
 
         </main>
         <footer class="footer">
