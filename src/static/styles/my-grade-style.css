@@ -108,6 +108,7 @@ main{
     font-size: 16px;
     margin: 2px;
     
+    text-decoration: none;
     background-color: white; 
     color: black; 
     border: 2px solid #3E6B7E;
@@ -121,7 +122,51 @@ main{
     
 }
 
+/* --------Remark Request Status-------- */
+.request-status{
+    display: flex;
+    border: 2px solid #0B345C;
+    margin: 8%;
+    padding: 3%;
+    border-radius: 15px;
+}
 
+.request-status-element{
+    display: inline-block;
+    width: 20%;
+    border: 2px solid #0B345C;
+    margin: 1%;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.status-element-type{
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.status-element-status{
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding-top: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.request-status-line{
+    padding-bottom: 0px;
+    margin-right: 10%;
+    border-bottom: 1.5px solid #0A1612;
+}
+
+@media only screen and (max-width: 750px) {
+    .request-status{
+        display: block;
+    }
+    .request-status-element {
+        width: auto;
+    }
+}
 
 /* --------Remark Request Form-------- */
 .request-form-wrapper{

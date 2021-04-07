@@ -44,7 +44,8 @@
                 </div>
                 <div class="title-line"></div>
                 <div class="title-description-text">
-                    If you wish for remark request, click on the botton besides the. 
+                    Your grade is as the following. <br>
+                    If you wish for remark request, click on the request botton. 
                 </div>
             </div>
             <!--Table-->
@@ -68,6 +69,18 @@
                     {% endfor %}
                 </div>
             </div>
+            
+            <div class="request-status">
+                {%for remarkRequest in remarkRequests%}
+                <div class="request-status-element">
+                    <div class="status-element-type"> {{remarkRequest['type']}} </div>
+                    <div class="request-status-line" ></div>
+                    <div class="status-element-status" onchange="status()" value={{remarkRequest['status']}} > {{remarkRequest['status']}} </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+
             <div id="remark-request-form"></div>
             <div class="request-form-wrapper">
                 <form id="" action="{{ url_for('remarkRequestSubmitted') }}" method="POST">
@@ -97,31 +110,6 @@
                     <input type="submit" value="submit" >
                 </form>
             </div>
-            
-            {% if remarkRequests == "{}" %}
-            <!--tag-->
-            <div class="tag-wrapper">
-                <div class="tag-text-upper">
-                    <h1 class="tag-text"> My Remark Request </h1>
-                </div>
-                <div class="tag-lower"> </div>
-            </div>
-            
-            <div class="content-wrapper">
-                {% for remark in remarks %}
-                <div class="content-fragment blue-linear margin-top">
-                    <div>
-                        <h1 class="text-header yellow-color">From: {{remark['username']}}</h1>
-                        <p class="text-content-2 white-color">Student Works: {{remark['type']}}</p>
-                        <p class="text-content-2 white-color">Request: {{remark['request']}}</p>
-                        <p class="text-content-2 white-color">Submission Time: {{remark['date_time']}}</p>
-                        <p class="text-content-2 yellow-color highlight-end">
-                            Status: {{remark['status']}}
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-            {% endif %}
 
         </main>
         <footer class="footer">
@@ -144,4 +132,5 @@
             </div>
         </footer>
     </body>
+    <script src="../static/javascripts/my-grade.js"></script>
 </html>

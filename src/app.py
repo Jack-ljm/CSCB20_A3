@@ -3,14 +3,13 @@ from functools import wraps
 from flask_session import Session
 import os
 import sqlite3
-from datetime import datetime
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'super secret key'
 Session(app)
 
-DATABASE = "./A3.db"
+DATABASE = "./assignment3.db"
 
 # The following three functions are taken from here
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/
@@ -29,7 +28,6 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
-# to be used for querying through the database
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
@@ -40,7 +38,6 @@ def make_dicts(cursor, row):
     return dict((cursor.description[idx][0], value)
                 for idx, value in enumerate(row))
 
-# prevents users from accessing pages through URL
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -86,7 +83,6 @@ def login():
         else:
             return render_template("login-result.html", user_exist=True, password_correct=False)
 
-# resets login credentials in the session
 @app.route('/logout')
 def logout():
     session['username'] = None
@@ -97,7 +93,6 @@ def logout():
 def signup():
     return render_template('account.html')
 
-# creates account by submitting the new information into user db
 @app.route('/account', methods = ['POST'])
 def account():
     username = request.form['username']
@@ -167,17 +162,22 @@ def tests():
 def resources():
     return render_template('resources.html', name=session.get('username', 'not set'))
 
+# Helper function for /feedback: Returns all instructors in the DATABASE
 def getInstructors():
     #connect to the database
     db = get_db()
     db.row_factory = make_dicts
 
+    #creating cursor and select distinct from user table
     cur = db.cursor()
     cur.execute("select distinct username from user where role= ?", ['instructor'])
     
     rows = cur.fetchall()
+    #close connection
+    cur.close()
     return rows
 
+# Helper function for /feedback: Returns all feedback to (instructor) in the DATABASE
 def get_feedback(name):
     #connect to the database
     db = get_db()
@@ -187,6 +187,8 @@ def get_feedback(name):
     cur.execute("select * from feedback where feedback_to= ?", [name])
     
     rows = cur.fetchall()
+    #close connection
+    cur.close()
     return rows
 
 @app.route('/feedback')
@@ -208,28 +210,32 @@ def feedback():
 def feedbackSubmitted():
     if request.method == 'POST':
         try:
-            print(request.form)
+            # getting the post body
             inst = request.form['instructor']
             qa = request.form['feedback-qa']
             qb = request.form['feedback-qb']
             qc = request.form['feedback-qc']
             qd = request.form['feedback-qd']
 
-            username=session.get('name', 'not set')
-            
+            # connect to DATABASE and make a cursor from it
             db = get_db()
+            #insert into table
             cur = db.execute(
-                "INSERT INTO feedback(username,feedback_to,date_time,question_a,question_b,question_c,question_d) values (?,?,?,?,?,?,?)",
-                (username,inst,datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),qa,qb,qc,qd) 
+                "INSERT INTO feedback(feedback_to,date_time,question_a,question_b,question_c,question_d) values (?,datetime('now'),?,?,?,?)",
+                (inst,qa,qb,qc,qd) 
             )
             
             db.commit()
+            # close the cursor
+            cur.close()
+            # ensuring commitment suceed
             msg = "Feedback has been recieved. Thank your for your feedback!"
         except:
             msg = "There is an error in insert operation. Please fill it in again."
 
         finally:
             return render_template('feedback-submitted.html', msg = msg, name=session.get('username', 'not set'))
+    # render template if it is GET
     return render_template('feedback-submitted.html', name=session.get('username', 'not set'))
 
 
@@ -271,12 +277,14 @@ def get_remarks():
 
     return remarks
 
+# Helper function for /grade: Return the grades of current user student with a list of subject (types)
 def getMyGrades(types):
     #Student side
     #connect to the database
     db = get_db()
     db.row_factory = make_dicts
 
+    # getting the post body
     username=session.get('username', 'not set')
     cur = db.cursor()
     cur.execute("select * from grade where username= ?", [username])
@@ -294,65 +302,62 @@ def getMyGrades(types):
             rows.append(temp)
         exist=False
 
+    # close the cursor
+    cur.close()
     return rows
 
-def getMyRemarks():
-    # connect to database
-    db=get_db()
+# Helper function for /grade: Return the remark request type and its status
+def getMyRemarkRequest():
+    #connect to the database
+    db = get_db()
     db.row_factory = make_dicts
-
-    # get username of the current user
-    username=session.get('username', 'not set')
-    # get remarks
-    remarks = []
-    for remark in query_db('SELECT * FROM remark WHERE username = ? ORDER BY date_time DESC', [username]):
-        remarks.append(remark)
-
-    return remarks
+    name=session.get('username', 'not set')
+    
+    #creating cursor and select from remark table
+    cur = db.cursor()
+    cur.execute("select type, status from remark where username= ?", [name])
+    
+    remarkRequests = cur.fetchall()
+    #close connection
+    cur.close()
+    return remarkRequests
 
 @app.route('/grades')
 @login_required
 def grades():
-    # define the types of assignments and exams
     types = ["A1", "A2", "A3","Labs", "TT1", "TT2", "Final"]
     
-    # check the role of the current user
     if session.get('role', 'not set') == 'student':
-        # render my-grade.html if the current user is a student
         rows = getMyGrades(types)
-        remarks = getMyRemarks()
+        remarkRequests = getMyRemarkRequest()
 
-        return render_template('my-grade.html', rows = rows, username=session.get('username', 'not set'), remarks=remarks)
+        return render_template('my-grade.html', rows = rows, remarkRequests = remarkRequests, username=session.get('username', 'not set'))
 
     elif session.get('role', 'not set') == 'instructor':
-        # render grades-instructor.html if the current user is an instructor
+
         grades = get_grades(types)
         remarks = get_remarks()
 
         return render_template('grades-instructor.html', name=session.get('username', 'not set'),  types=types, grades=grades, remarks=remarks)
     else:
-        # this case is impossible since login is required
         return "Session not set"
 
+@login_required
 def updateGrade():
-    # extract form information from the request
+    # extract new grade from the request
     name = request.form['name']
     t = request.form['type']
     oldGrade = request.form['oldGrade']
     newGrade = request.form['newGrade']
 
-    # check the old grade
     if oldGrade == "N/A":
-        # if the old grade is not avaliable,
-        # try to insert the new grade into the database
         try:
             db = get_db()
             cur = db.execute(
-                "INSERT INTO grade values (?, ?, ?, ?)",
+                "INSERT INTO grade values (?, ?, datetime('now'), ?)",
                 (
                     name,
                     t,
-                    datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),
                     newGrade
                 )
             )
@@ -360,15 +365,12 @@ def updateGrade():
         except:
             return "error"
     else:
-        # if the old grade is also in the database,
-        # try to update the database with the new grade
         try:
             db = get_db()
             cur = db.execute(
-                "UPDATE grade SET grade = ?, date_time = ? WHERE username = ? AND type = ?",
+                "UPDATE grade SET grade = ? WHERE username = ? AND type = ?",
                 (
                     newGrade,
-                    datetime.now().strftime("%Y-%d-%m, %H:%M:%S"),
                     name,
                     t
                 )
