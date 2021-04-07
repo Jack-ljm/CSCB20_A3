@@ -33,7 +33,13 @@ INSERT INTO feedback VALUES
 ('Anna', "2021-04-07 11:34:56", 'content for qa', 'content for qb', 'content for qc', 'content for qd');
 
 INSERT INTO remark VALUES
-('Jack', 'A1', "2021-04-02 11:34:56", 'I would like to remark', 'Not yet started'),
-('Katrina', 'A2', "2021-04-03 11:34:56", 'I would like to remark', 'In progress'),
-('Levi', 'Labs', "2021-03-17 04:34:56", 'I think I deserve better mark', 'Addressed')
+('Jack', 'A1', datetime('now'), 'I would like to remark', 'Not yet started'),
+('Katrina', 'A2', datetime('now'), 'I would like to remark', 'In progress'),
+
+('Levi', 'Labs', datetime('now'), 'I think I deserve better mark', 'Addressed'),
+('Levi', 'Midterm', datetime('now'), 'Because I can', 'Not yet started'),
+('Levi', 'A1', datetime('now'), 'I want remark', 'In progress'),
+('student1', 'Labs', datetime('now'), 'I think I deserve better mark', 'Addressed'),
+('student1', 'Midterm', datetime('now'), 'Because I can', 'Not yet started'),
+('student1', 'A1', datetime('now'), 'I want remark', 'In progress')
 ;
